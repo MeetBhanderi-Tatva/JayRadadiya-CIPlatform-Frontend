@@ -1,0 +1,120 @@
+<div
+  class="row d-flex justify-content-center border-bottom border-1 border-light-subtle"
+>
+  <div class="col-12 col-md-9 d-flex justify-content-between">
+    <div class="ps-1 d-flex flex-grow-1">
+      <form [formGroup]="formGroupSearch" class="w-100">
+        <p-inputGroup [styleClass]="'w-100'">
+          <p-inputGroupAddon>
+            <i class="pi pi-search"></i>
+          </p-inputGroupAddon>
+          <input
+            type="text"
+            pInputText
+            formControlName="search"
+            class="border-0 w-100 h-100"
+            style="outline: none"
+            placeholder="Search mission..."
+          />
+        </p-inputGroup>
+      </form>
+    </div>
+    <form [formGroup]="formGroupLists">
+      <div class="d-none d-lg-flex">
+        <p-dropdown
+          formControlName="selectedCountry"
+          [options]="countries"
+          [style]="{width:'120px'}"
+          [styleClass]="'border-secondary-subtle shadow-none'"
+          optionLabel="countryName"
+          placeholder="country"
+        />
+        <p-multiSelect
+          [options]="city"
+          formControlName="selectedCities"
+          [style]="{width:'120px'}"
+          [showHeader]="false"
+          [styleClass]="'border-secondary-subtle shadow-none'"
+          optionLabel="cityName"
+          placeholder="city"
+        />
+        <p-multiSelect
+          [options]="theme"
+          formControlName="selectedThemes"
+          [showHeader]="false"
+          [style]="{width:'120px'}"
+          [styleClass]="'border-secondary-subtle shadow-none'"
+          optionLabel="themeName"
+          placeholder="theme"
+        />
+        <p-multiSelect
+          [options]="skill"
+          formControlName="selectedSkills"
+          [showHeader]="false"
+          [style]="{width:'120px'}"
+          [styleClass]="'border-secondary-subtle shadow-none  '"
+          optionLabel="skillName"
+          placeholder="skill"
+        />
+      </div>
+      <div class="d-flex d-lg-none">
+        <p-button icon="pi pi-sliders-v" [styleClass]="'bg-transparent text-secondary border-0 cursor-pointer'" />
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row d-flex justify-content-center px-3">
+  <div class="col-12 col-md-9">
+    <div class="col-12 d-flex justify-content-between my-3">
+      <div class="d-flex align-items-center">
+        <span class="text-center text-secondary-emphasis">Explore <span class="text-black fw-medium fs-6">{{ missionList.length }} Missions </span></span>
+      </div>
+      <div class="d-flex align-items-center gap-3 d-none d-lg-flex">
+        <div>
+          <form [formGroup]="formGroupFilter">
+            <p-dropdown
+              formControlName="selectedSorting"
+              [style]="{width:'180px',boxShadow:'none'}"
+              scrollHeight="260px"
+              [options]="sortings"
+              optionLabel="Sorting"
+              placeholder="Sort by"
+            />
+          </form>
+        </div>
+        <div class="view-buttons">
+          <p-button
+            icon="pi pi-th-large"
+            [class.active]="activeView === 'grid'"
+            (click)="setView('grid')"
+            [styleClass]="'p-1'"
+          />
+          <p-button
+            icon="pi pi-bars"
+            [class.active]="activeView === 'list'"
+            (click)="setView('list')"
+            [styleClass]="'p-1'"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-9">
+    @if(activeView === 'grid'){
+      <div class="row gx-4">
+        <div class="col-12 col-sm-6 col-lg-4 " *ngFor="let mission of missionList">
+        <app-mission-card [mission]="mission"></app-mission-card>
+      </div>
+    </div>
+    }
+    @else{
+      <div class="row gx-4">
+        <div class="col-12" *ngFor="let mission of missionList">
+        <app-mission-card-list [mission]="mission"></app-mission-card-list>
+      </div>
+    </div>
+    }
+    
+    
+  </div>
+</div>

@@ -1,0 +1,71 @@
+@media (min-width: 768px) {
+    :host {
+      font-size: 14px !important;
+    }
+  }
+:host ::ng-deep .p-menuitem-link{
+    text-decoration: none;
+    padding: 10px;
+  }
+:host ::ng-deep .p-menubar-root-list{
+    margin-bottom: 0px;
+    padding-left: 0px;
+  }
+:host ::ng-deep .p-avatar{
+    height: 2rem;
+    width: 2rem;
+  }
+:host ::ng-deep .profileItems .p-menuitem-link{
+    padding-left: 10px;
+}
+:host ::ng-deep .p-submenu-icon{
+    margin-top: 5px;
+}
+:host ::ng-deep .apply-button{
+    width: max-content;
+    color: #f18a40;
+    border-color: #f18a40;
+  }
+   :host ::ng-deep .apply-button:hover{
+    color: #da5e05;
+    border-color: #da5e05;
+  }
+   :host ::ng-deep .p-dialog-header{
+    padding-left: 2.5rem;
+  }
+   :host ::ng-deep .p-dialog-content input,textarea{
+    border: 1px solid #ced4da;
+    outline: none;
+  }
+   :host ::ng-deep .p-inputnumber{
+    width: 100% ;
+  }
+
+  :host ::ng-deep .p-fileupload .p-fileupload-content{
+    padding: 0px;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker{
+    min-width: 300px;
+  }
+  :host ::ng-deep .p-calendar button{
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker-header{
+    padding: 0px;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker-calendar td{
+    padding: 0px;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker-calendar th{
+    padding: 0px;
+    text-align: center;
+  }
+  :host ::ng-deep .p-calendar .p-datepicker-buttonbar{
+    padding: 0px;
+  }
+@media (max-width: 992px) {
+    :host ::ng-deep .p-menubar{
+      display: none; /* Hide menubar on small screens */
+    }
+}

@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+html, body { height: 100%;
+font-size: 16px; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* app-login{
+    width: 100%;
+}
+app-register{
+    width: 100%;
+} */
+body {
+    overflow-x: hidden;
+    width: 100vw;
+    letter-spacing: 0 !important;
+}
+dl,ol,ul{
+    margin-bottom: 0px !important;
+    padding-left: 0px !important;
+}
+

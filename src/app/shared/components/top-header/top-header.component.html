@@ -1,0 +1,384 @@
+<div
+  class="row d-flex justify-content-center border-bottom border-1 border-light-subtle"
+>
+  <div class="col-12 col-md-9 d-flex justify-content-between py-1">
+    <div class="d-flex">
+      <div class=""></div>
+      <p-menubar
+        [model]="items"
+        [styleClass]="'border-0 bg-transparent p-0 menubar'"
+      />
+    </div>
+    <div class="d-flex align-items-center gap-1">
+      <p-button
+        [type]="'submit'"
+        label="Submit New Mission"
+        [outlined]="true"
+        severity="warning"
+        [styleClass]="'rounded-5 border-2 fw-medium fs-6 apply-button py-1'"
+        (click) = "showDialog()"
+      />
+      <i
+        class="pi pi-bell text-3xl mx-2"
+        style="font-size: 1.3rem"
+        pBadge
+        value="2"
+      ></i>
+      <p-avatar
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+        [styleClass]="'mt-1 mx-1'"
+        size="xlarge"
+        shape="circle"
+      />
+      <p-menubar
+        [model]="profileItems"
+        [styleClass]="'border-0 bg-transparent p-0 profileItems menubar'"
+      />
+    </div>
+  </div>
+</div>
+
+<p-sidebar
+  [(visible)]="sidebarVisible"
+  styleClass="custom-sidebar"
+  [baseZIndex]="1000"
+  [modal]="true"
+>
+  <h1>Sidebar</h1>
+  <ul>
+    <li><a href="#">Menu 1</a></li>
+    <li><a href="#">Menu 2</a></li>
+    <li><a href="#">Menu 3</a></li>
+  </ul>
+</p-sidebar>
+
+<p-dialog
+  header="Add New Mission"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '40vw' }" 
+  [blockScroll]="false"
+  [focusOnShow]="false"
+    [breakpoints]="{ '1199px': '55vw', '575px': '90vw' }">
+
+<form [formGroup]="missionForm" class="w-100 px-3" (ngSubmit)="onSubmit()">
+  
+  <div class="row d-flex">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <div class="mb-1 text-secondary">Country</div>
+        <p-dropdown 
+            formControlName="CountryId"
+            [options]="formLists?.countries"
+            optionLabel="countryName"
+            optionValue="countryId"
+            [styleClass]="'w-100'"
+            placeholder="Select Country" (onChange)="onCountryChange($event)" />
+        @if(missionForm.controls['CountryId'].invalid &&
+        (missionForm.controls['CountryId'].touched || missionForm.controls['CountryId'].dirty)) {
+        @if (missionForm.controls['CountryId'].hasError('required')) {
+        <small class="p-error d-block">Select a country</small>
+        } }
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="form-group">
+            <div class="mb-1 text-secondary">City</div>
+            <p-dropdown 
+                formControlName="CityId"
+                [options]="cities"
+                optionLabel="cityName"
+                optionValue="cityId"
+                [styleClass]="'w-100'"
+                placeholder="Select City" />
+            @if(missionForm.controls['CityId'].invalid &&
+            (missionForm.controls['CityId'].touched || missionForm.controls['CityId'].dirty)) {
+            @if (missionForm.controls['CityId'].hasError('required')) {
+            <small class="p-error d-block">Select a City</small>
+            } }
+          </div>
+    </div>
+  </div>
+  <div class="form-group my-4">
+    <label class="mb-1 text-secondary" for="MissionTitle">Mission Title</label>
+    <input type="text" pInputText class="w-100 shadow-none py-2" formControlName="MissionTitle" id="MissionTitle" placeholder="Enter Mission Title" maxlength="128"/>
+    @if(missionForm.controls['MissionTitle'].invalid && (missionForm.controls['MissionTitle'].touched || missionForm.controls['MissionTitle'].dirty))
+    {
+      @if (missionForm.controls['MissionTitle'].hasError('required')) {
+        <small class="p-error">Mission title is required</small>
+      }
+    }
+  </div>
+  <div class="form-group my-4">
+    <label class="mb-1 text-secondary" for="MSD">Mission Short Description</label>
+    <textarea pInputTextarea rows="3" class="w-100 shadow-none" formControlName="MissionShortDescription" id="MSD" placeholder="Enter your message" maxlength="256"></textarea>
+    @if(missionForm.controls['MissionShortDescription'].invalid && (missionForm.controls['MissionShortDescription'].touched || missionForm.controls['MissionShortDescription'].dirty))
+    {
+      @if (missionForm.controls['MissionShortDescription'].hasError('required')) {
+        <small class="p-error">This field is required</small>
+      }
+    }
+  </div>
+  <div class="form-group my-4">
+    <label class="mb-1 text-secondary" for="MD">Mission Description</label>
+    <textarea rows="3" pInputTextarea  class="w-100 shadow-none" formControlName="MissionDescription" id="MD" placeholder="Enter your message" maxlength="2048"></textarea>
+    @if(missionForm.controls['MissionDescription'].invalid && (missionForm.controls['MissionDescription'].touched || missionForm.controls['MissionDescription'].dirty))
+    {
+      @if (missionForm.controls['MissionDescription'].hasError('required')) {
+        <small class="p-error">This field is required</small>
+      }
+    }
+  </div>
+  <div class="form-group my-4">
+    <label class="mb-1 text-secondary" for="MON">Mission Organisation Name</label>
+    <input type="text" pInputText class="w-100 shadow-none py-2" formControlName="MissionOrganisationName" id="MON" placeholder="Enter Mission Title" maxlength="50"/>
+    @if(missionForm.controls['MissionOrganisationName'].invalid && (missionForm.controls['MissionOrganisationName'].touched || missionForm.controls['MissionOrganisationName'].dirty))
+    {
+      @if (missionForm.controls['MissionOrganisationName'].hasError('required')) {
+        <small class="p-error">Mission title is required</small>
+      }
+    }
+  </div>
+  <div class="form-group my-4">
+    <label class="mb-1 text-secondary" for="MOD">Mission Organisation Detail</label>
+    <textarea  pInputTextarea rows="3" class="w-100 shadow-none" formControlName="MissionOrganisationDetail" id="MOD" placeholder="Enter your message" maxlength="2048"></textarea>
+    @if(missionForm.controls['MissionOrganisationDetail'].invalid && (missionForm.controls['MissionOrganisationDetail'].touched || missionForm.controls['MissionOrganisationDetail'].dirty))
+    {
+      @if (missionForm.controls['MissionOrganisationDetail'].hasError('required')) {
+        <small class="p-error">This field is required</small>
+      }
+    }
+  </div>
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">
+        Total Seats
+      </div>
+      <p-inputNumber 
+formControlName="TotalSeats" 
+mode="decimal"
+class="w-100"
+[inputStyleClass]="'w-100'"
+[min]="0" 
+[max]="1000" 
+placeholder="Enter total seats"/> 
+    @if(missionForm.controls['TotalSeats'].invalid &&
+    (missionForm.controls['TotalSeats'].touched || missionForm.controls['TotalSeats'].dirty)) {
+    @if (missionForm.controls['TotalSeats'].hasError('required')) {
+    <small class="p-error">Please enter total seats</small>
+    } }
+  </div>
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">Mission Type</div>
+    <p-dropdown 
+        formControlName="MissionType"
+        [options]="missionTypes"
+        optionLabel="value"
+        [styleClass]="'w-100'"
+        optionValue="key"
+        placeholder="Select a type" />
+    @if(missionForm.controls['MissionType'].invalid &&
+    (missionForm.controls['MissionType'].touched || missionForm.controls['MissionType'].dirty)) {
+    @if (missionForm.controls['MissionType'].hasError('required')) {
+    <small class="p-error d-block">Select a type</small>
+    } }
+  </div>
+  @if(isTimeMission){
+    <div class="form-group my-4">
+      <div class="mb-1 text-secondary">
+          Mission Registration Deadline
+        </div>
+        <p-calendar 
+        #registrationDeadlineInput
+        formControlName="MissionRegistrationDeadline"
+        [iconDisplay]="'input'" 
+        [readonlyInput]="true"
+        [minDate]="minDate"
+        [showIcon]="true" 
+        [showOnFocus]="false"
+        [styleClass]="'w-100'"
+        [showButtonBar]="true"
+        placeholder="Enter mission registration deadline"></p-calendar>
+      @if(missionForm.controls['MissionRegistrationDeadline'].invalid &&
+      (missionForm.controls['MissionRegistrationDeadline'].touched || missionForm.controls['MissionRegistrationDeadline'].dirty)) {
+      @if (missionForm.controls['MissionRegistrationDeadline'].hasError('required')) {
+      <small class="p-error">This field is required</small>
+      } }
+    </div>
+    <div class="form-group my-4">
+        <div class="mb-1 text-secondary">
+            Mission Start Date
+          </div>
+          <p-calendar 
+          #startDateInput
+          formControlName="MissionStartDate"
+          [iconDisplay]="'input'" 
+          [showIcon]="true" 
+          [minDate]="minStartDate"
+          [styleClass]="'w-100'"
+          [readonlyInput]="true"
+          [showOnFocus]="false"
+          [showButtonBar]="true"
+          placeholder="Enter mission start date" 
+          (onFocus)="onMissionDateFocus($event)"></p-calendar>
+          @if (showStartDateError && !missionForm.get('MissionRegistrationDeadline')!.value) {
+            <small class="p-error">Please fill out the registration deadline first.</small>
+            }
+        @else if(missionForm.controls['MissionStartDate'].invalid &&
+        (missionForm.controls['MissionStartDate'].touched || missionForm.controls['MissionStartDate'].dirty)) {
+        @if (missionForm.controls['MissionStartDate'].hasError('required')) {
+        <small class="p-error">This field is required</small>
+        } }
+        
+      </div>
+    <div class="form-group my-4">
+        <div class="mb-1 text-secondary">
+            Mission End Date
+          </div>
+          <p-calendar 
+          #endDateInput
+          formControlName="MissionEndDate"
+          [iconDisplay]="'input'" 
+          [readonlyInput]="true"
+          [showIcon]="true" 
+          [minDate]="minEndDate"
+          [showOnFocus]="false"
+          [styleClass]="'w-100'"
+          [showButtonBar]="true"
+          placeholder="Enter mission end date"
+          (onFocus)="onMissionEndDateFocus($event)"></p-calendar>
+          @if (showEndDateError && !missionForm.get('MissionStartDate')!.value) {
+            <small class="p-error">Please fill out the mission start date.</small>
+            }
+        @else if(missionForm.controls['MissionEndDate'].invalid &&
+        (missionForm.controls['MissionEndDate'].touched || missionForm.controls['MissionEndDate'].dirty)) {
+        @if (missionForm.controls['MissionEndDate'].hasError('required')) {
+        <small class="p-error">This field is required</small>
+        } }
+      </div>
+    
+  }
+  @if(isGoalMission){
+    <div class="form-group my-4">
+        <label class="mb-1 text-secondary" for="GoalObject">Goal Object</label>
+        <input type="text" pInputText class="w-100 shadow-none py-2" formControlName="GoalObject" id="GoalObject" placeholder="Enter Goal Object"/>
+        @if(missionForm.controls['GoalObject'].invalid && (missionForm.controls['GoalObject'].touched || missionForm.controls['GoalObject'].dirty))
+        {
+          @if (missionForm.controls['GoalObject'].hasError('required')) {
+            <small class="p-error">Mission object is required</small>
+          }
+        }
+      </div>
+    <div class="form-group my-4">
+        <div class="mb-1 text-secondary">
+            Total Goals
+          </div>
+          <p-inputNumber 
+    formControlName="TotalGoal" 
+    mode="decimal"
+    class="w-100"
+    [inputStyleClass]="'w-100'"
+    [min]="0" 
+    [max]="500" 
+    placeholder="Enter total goals"/> 
+        @if(missionForm.controls['TotalGoal'].invalid &&
+        (missionForm.controls['TotalGoal'].touched || missionForm.controls['TotalGoal'].dirty)) {
+        @if (missionForm.controls['TotalGoal'].hasError('required')) {
+        <small class="p-error">Please enter total goals</small>
+        } }
+      </div>
+  }
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">Theme</div>
+    <p-dropdown 
+        formControlName="ThemeId"
+        [options]="formLists?.themes"
+        optionLabel="themeName"
+        [styleClass]="'w-100'"
+        optionValue="themeId"
+        placeholder="Select Mission Theme" />
+    @if(missionForm.controls['ThemeId'].invalid &&
+    (missionForm.controls['ThemeId'].touched || missionForm.controls['ThemeId'].dirty)) {
+    @if (missionForm.controls['ThemeId'].hasError('required')) {
+    <small class="p-error">Select a Theme</small>
+    } }
+  </div>
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">Skill</div>
+  <p-multiSelect
+          [options]="formLists?.skills"
+          formControlName="MissionSkill"
+          [showHeader]="false"
+          optionLabel="skillName"
+          optionValue="skillId"
+          [styleClass]="'w-100'"
+          placeholder="Select Mission Skill"
+        />
+        @if(missionForm.controls['MissionSkill'].invalid &&
+    (missionForm.controls['MissionSkill'].touched || missionForm.controls['MissionSkill'].dirty)) {
+    @if (missionForm.controls['MissionSkill'].hasError('required')) {
+    <small class="p-error">Select Skills</small>
+    } }
+  </div>
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">Mission Images</div>
+    <div class="card flex justify-content-center">
+      <p-fileUpload #imageUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1048576"  (onSelect)="onSelectImages($event)" (onRemove)="onRemoveImage($event)" [invalidFileSizeMessageSummary]="'Invalid file size'"
+      [invalidFileSizeMessageDetail]="'File should be less than 1 mb'"
+      [invalidFileTypeMessageSummary]="'Invalid file type'"
+      [invalidFileTypeMessageSummary]="'Only image files are allowed'"
+      [showUploadButton]="false"
+      [showCancelButton]="false">
+      
+        <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" >
+            <div class="d-flex justify-content-center flex-column align-items-center w-100 py-3" (click)="triggerImageUpload()">
+                    <div class="w-100 d-flex justify-content-center">
+                      <i class="pi pi-cloud-upload" style="font-size: 2rem"></i>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center"><span>upload image here</span></div>
+            </div>
+        </ng-template>
+    </p-fileUpload>
+    </div>
+  </div>
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">Mission Documents</div>
+    <div class="card flex justify-content-center">
+      <p-fileUpload #fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept=".pdf,.doc" maxFileSize="2097152"  (onSelect)="onSelectFiles($event)" (onRemove)="onRemoveFile($event)" [invalidFileSizeMessageSummary]="'Invalid file size'"
+      [invalidFileSizeMessageDetail]="'File should be less than 2 mb'"
+      [invalidFileTypeMessageSummary]="'Invalid file type'"
+      [invalidFileTypeMessageSummary]="'Only pdf and doc files are allowed'"
+      [showUploadButton]="false"
+      [showCancelButton]="false">
+        <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" >
+            <div class="d-flex justify-content-center flex-column align-items-center w-100 py-3" (click)="triggerFileUpload()">
+                    <div class="w-100 d-flex justify-content-center">
+                      <i class="pi pi-cloud-upload" style="font-size: 2rem"></i>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center"><span>upload document here</span></div>
+            </div>
+        </ng-template>
+    </p-fileUpload>
+    </div>
+  </div>
+  <div class="form-group my-4">
+    <div class="mb-1 text-secondary">Mission Availability</div>
+    <p-dropdown 
+        formControlName="MissionAvailability"
+        [options]="missionAvailibilities"
+        optionLabel="Type"
+        [styleClass]="'w-100'"
+        optionValue="Value"
+        placeholder="Select a type" />
+    @if(missionForm.controls['MissionAvailability'].invalid &&
+    (missionForm.controls['MissionAvailability'].touched || missionForm.controls['MissionAvailability'].dirty)) {
+    @if (missionForm.controls['MissionAvailability'].hasError('required')) {
+    <small class="p-error d-block">Select a option</small>
+    } }
+  </div>
+  <div class="my-4">
+    <p-button label="Cancel" [outlined]="true" severity="contrast" [styleClass]="'rounded-5 border-1 fw-medium fs-6 mx-1'" (click)="visible = false"/>
+    <p-button [type]="'submit'" label="Submit" [outlined]="true" severity="warning" [styleClass]="'rounded-5 border-2 fw-medium fs-6 apply-button mx-1'"/>
+  </div>
+</form>
+</p-dialog>
+

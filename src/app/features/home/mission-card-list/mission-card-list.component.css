@@ -1,0 +1,80 @@
+:host ::ng-deep .image-buttons .p-button {
+    background-color: black;
+    opacity: 0.5;
+    color: white;
+    border-color: transparent;
+    border-radius: 20px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+:host ::ng-deep .p-rating{
+    gap: 0.2rem;
+}
+:host ::ng-deep .p-progressbar .p-progressbar-value {
+    background: #f18a40;
+}
+:host ::ng-deep .apply-button{
+    width: max-content;
+    color: #f18a40;
+    border-color: #f18a40;
+  }
+   :host ::ng-deep .apply-button:hover{
+    color: #da5e05;
+    border-color: #da5e05;
+  }
+.mission-image-container{
+    width: 100%;
+    height: 100%;
+}
+.mission-image{
+    width: 100%;
+    height: 100%;
+}
+.short-description{
+    margin-bottom: 5px !important;
+    max-height: 25px; /* Set your desired max height */
+    overflow: hidden;
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+.organisation-name{
+    font-size: 14px;
+    font-weight: 400;
+}
+.seats-left{
+    font-size: 14px !important;
+}
+.goal-object{
+    top: -15px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding-left: 5px;
+    padding-right: 5px;
+    width: max-content;
+    font-size: 12px;
+    text-align: center;
+    background: white;
+    border: 1px solid rgb(211, 208, 208);
+    border-radius: 15px;
+}
+.theme-name{
+    bottom: -1rem;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding-left: 5px;
+    padding-right: 5px;
+    width: max-content;
+    font-size: 12px;
+    text-align: center;
+    background: white;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 15px;
+}
+.image-buttons{
+    top:0;
+    bottom: 0;
+    right: 5px;
+}

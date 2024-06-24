@@ -1,0 +1,21 @@
+:host ::ng-deep .p-multiselect{
+    width: 8rem;
+}
+:host ::ng-deep .p-inputgroup-addon{
+    background: none;
+    border: none;
+}
+:host ::ng-deep .view-buttons .p-button {
+    background: none;
+    color: black;
+    border-color: transparent;
+    border-radius: 20px;
+}
+:host ::ng-deep .p-element.active .p-button{
+    background-color: #e6e2e2;
+}
+app-mission-card{
+    width: 100%;
+}
+
+

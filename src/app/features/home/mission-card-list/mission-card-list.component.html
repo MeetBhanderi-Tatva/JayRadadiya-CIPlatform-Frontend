@@ -1,0 +1,94 @@
+<div class="row my-3 border border-1 border-light shadow-sm">
+  <div class="col-3 position-relative p-0">
+    <img
+      alt="Card"
+      class="mission-image"
+      src="data:image/png;base64,{{ mission.image }}"
+    />
+    <div class="position-absolute theme-name">Environment</div>
+    <div
+      class="position-absolute image-buttons d-flex flex-column align-items-end justify-content-between"
+    >
+      <div>
+        <p-button
+          label="City"
+          icon="pi pi-map-marker"
+          [styleClass]="'py-0 my-2'"
+        />
+      </div>
+      <div class="d-flex flex-column align-items-end">
+        <p-button icon="pi pi-heart" [styleClass]="'py-1'" />
+        <p-button icon="pi pi-user-plus" [styleClass]="'py-1'" />
+      </div>
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="col-12">{{ mission.missionTitle }}</div>
+    <p class="short-description fw-light mb-0 px-3">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam delectus quo
+      id doloremque modi.
+    </p>
+    <div class="row mb-1">
+      <div class="col-7 d-flex flex-column">
+        <div class="my-2 px-3 d-flex">
+          <div class="organisation-name me-1">
+            {{ mission.missionOrganisationName }}
+          </div>
+          <p-rating [(ngModel)]="value" [cancel]="false" stars="5">
+            <ng-template pTemplate="onicon">
+              <i class="pi pi-star-fill" style="color: rgb(238, 217, 29)"></i>
+            </ng-template>
+            <ng-template pTemplate="officon">
+              <i class="pi pi-star-fill" style="color: rgb(219, 218, 217)"></i>
+            </ng-template>
+          </p-rating>
+        </div>
+        <div class="d-flex justify-content-start ps-3">
+          <p-button
+            [type]="'submit'"
+            label="Apply"
+            [outlined]="true"
+            severity="warning"
+            [styleClass]="'rounded-5 border-2 fw-medium fs-6 apply-button py-1'"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+          />
+        </div>
+      </div>
+      <div class="col-5 mt-3">
+        <div
+          class="col-12 d-flex border-top border-top-1 border-light-subtle pt-3 position-relative"
+        >
+          <div class="col-5 col-lg-4 d-flex">
+            <div class="d-flex justify-content-center mt-2 pe-2">
+              <i class="pi pi-user" style="font-size: 1.2rem"></i>
+            </div>
+            <div class="d-flex flex-column">
+              <div class="fs-6 fw-medium flex-grow-1">
+                {{ mission.totalSeats }}
+              </div>
+              <div class="fs-6 fw-light seats-left">seats left</div>
+            </div>
+          </div>
+          <div class="col-7 col-lg-8 d-flex">
+            <div class="d-flex justify-content-center mt-2 pe-2">
+              <i class="pi pi-bullseye" style="font-size: 1.3rem"></i>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 justify-content-evenly">
+              <div class="pt-1">
+                <p-progressBar
+                  [value]="50"
+                  [showValue]="false"
+                  [style]="{ height: '6px' }"
+                />
+              </div>
+              <div class="fs-6 fw-light seats-left">50 achieved</div>
+            </div>
+          </div>
+
+          <div class="position-absolute goal-object">Ongoing Opportunity</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
