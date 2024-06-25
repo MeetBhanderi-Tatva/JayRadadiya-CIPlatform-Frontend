@@ -8,6 +8,7 @@ import { RegisterRequest } from '../Interfaces/register-request';
 import { ForgotPasswordRequest } from '../Interfaces/forgot-password-request';
 import { ChangePasswordRequest } from '../Interfaces/change-password-request';
 import { jwtDecode } from 'jwt-decode';
+import { LoginResponse } from '../Interfaces/user-info';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,13 +19,14 @@ export class AuthService {
 
   }
 
-  login(data: LoginRequest): Observable<AuthResponse<string>> {
+  login(data: LoginRequest): Observable<AuthResponse<LoginResponse>> {
     return this.http
-      .post<AuthResponse<string>>(`${this.apiUrl}/api/User/login`, data)
+      .post<AuthResponse<LoginResponse>>(`${this.apiUrl}/api/User/login`, data)
       .pipe(
         map((response) => {
           if (response.result) {
-            localStorage.setItem(this.tokenKey, response.data);
+            localStorage.setItem(this.tokenKey, response.data.token);
+            localStorage.setItem('userInfo',JSON.stringify(response.data.userInfo));
           }
           return response;
         })

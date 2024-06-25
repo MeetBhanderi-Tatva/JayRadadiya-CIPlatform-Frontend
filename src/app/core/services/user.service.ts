@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { AuthResponse } from '../Interfaces/auth-response';
 import { City } from '../Interfaces/city';
 import { IMission } from '../Interfaces/mission';
-import { FormLists } from '../Interfaces/form-lists';
+import { FilterList, FormLists } from '../Interfaces/form-lists';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,15 @@ export class UserService {
       this.apiUrl + "/api/Home/mission"
     );
   }
+  getAllFilters(): Observable<AuthResponse<FilterList>>{
+    return this.http.get<AuthResponse<FilterList>>(
+      this.apiUrl + "/api/Home/mission-filter"
+    );
+  }
 
   getMissions(searchValue : string,country: number, cities: number[], themes : number[], skills : number[], sortingOption : number ):Observable<AuthResponse<IMission[]>>
   {
+    console.log(searchValue);
     let params = new HttpParams()
       .set('searchValue', searchValue)
       .set('country', country.toString())

@@ -1,9 +1,10 @@
+
+<form [formGroup]="formGroupFilters">
 <div
   class="row d-flex justify-content-center border-bottom border-1 border-light-subtle"
 >
   <div class="col-12 col-md-9 d-flex justify-content-between">
     <div class="ps-1 d-flex flex-grow-1">
-      <form [formGroup]="formGroupSearch" class="w-100">
         <p-inputGroup [styleClass]="'w-100'">
           <p-inputGroupAddon>
             <i class="pi pi-search"></i>
@@ -11,56 +12,65 @@
           <input
             type="text"
             pInputText
-            formControlName="search"
+            formControlName="searchValue"
             class="border-0 w-100 h-100"
             style="outline: none"
             placeholder="Search mission..."
           />
         </p-inputGroup>
-      </form>
     </div>
-    <form [formGroup]="formGroupLists">
       <div class="d-none d-lg-flex">
         <p-dropdown
-          formControlName="selectedCountry"
-          [options]="countries"
+          formControlName="country"
+          [options]="filterList?.countries"
           [style]="{width:'120px'}"
           [styleClass]="'border-secondary-subtle shadow-none'"
           optionLabel="countryName"
-          placeholder="country"
-        />
+          optionValue="countryId"
+          placeholder="Country">
+          <ng-template pTemplate="selectedItem">
+            <div class="d-flex align-items-center">
+                <div>Country</div>
+            </div>
+        </ng-template>
+      </p-dropdown>
         <p-multiSelect
-          [options]="city"
-          formControlName="selectedCities"
+          [options]="filterList?.cities"
+          formControlName="cities"
           [style]="{width:'120px'}"
           [showHeader]="false"
           [styleClass]="'border-secondary-subtle shadow-none'"
+          [displaySelectedLabel]="false"
           optionLabel="cityName"
-          placeholder="city"
+          optionValue="cityId"
+          placeholder="City"
         />
         <p-multiSelect
-          [options]="theme"
-          formControlName="selectedThemes"
+          [options]="filterList?.themes"
+          formControlName="themes"
           [showHeader]="false"
           [style]="{width:'120px'}"
           [styleClass]="'border-secondary-subtle shadow-none'"
+          [displaySelectedLabel]="false"
           optionLabel="themeName"
-          placeholder="theme"
+          optionValue="themeId"
+          placeholder="Theme"
         />
         <p-multiSelect
-          [options]="skill"
-          formControlName="selectedSkills"
+          [options]="filterList?.skills"
+          formControlName="skills"
           [showHeader]="false"
           [style]="{width:'120px'}"
-          [styleClass]="'border-secondary-subtle shadow-none  '"
+          [styleClass]="'border-secondary-subtle shadow-none'"
+          [displaySelectedLabel]="false"
           optionLabel="skillName"
-          placeholder="skill"
+          optionValue="skillId"
+          placeholder="Skill"
         />
       </div>
       <div class="d-flex d-lg-none">
         <p-button icon="pi pi-sliders-v" [styleClass]="'bg-transparent text-secondary border-0 cursor-pointer'" />
       </div>
-    </form>
   </div>
 </div>
 <div class="row d-flex justify-content-center px-3">
@@ -71,16 +81,15 @@
       </div>
       <div class="d-flex align-items-center gap-3 d-none d-lg-flex">
         <div>
-          <form [formGroup]="formGroupFilter">
             <p-dropdown
-              formControlName="selectedSorting"
+              formControlName="sortingOption"
               [style]="{width:'180px',boxShadow:'none'}"
               scrollHeight="260px"
               [options]="sortings"
-              optionLabel="Sorting"
+              optionLabel="sorting"
+              optionValue="id"
               placeholder="Sort by"
             />
-          </form>
         </div>
         <div class="view-buttons">
           <p-button
@@ -118,3 +127,5 @@
     
   </div>
 </div>
+
+</form>

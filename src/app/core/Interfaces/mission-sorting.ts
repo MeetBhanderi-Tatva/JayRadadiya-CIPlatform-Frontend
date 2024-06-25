@@ -1,4 +1,4 @@
 export interface MissionSorting {
-    Id: number;
-    Sorting : string;
+    id: number;
+    sorting : string;
 }
