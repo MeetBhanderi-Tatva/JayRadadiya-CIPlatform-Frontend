@@ -18,4 +18,5 @@ export interface IMission {
   goalObject: string;
   image: Uint8Array;
   favourite : number;
+  isApplied : boolean;
 }

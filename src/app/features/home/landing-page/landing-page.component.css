@@ -14,8 +14,13 @@
 :host ::ng-deep .p-element.active .p-button{
     background-color: #e6e2e2;
 }
+.filter-label{
+    font-size: 12px;
+    letter-spacing: normal;
+}
 app-mission-card{
     width: 100%;
 }
+
 
 

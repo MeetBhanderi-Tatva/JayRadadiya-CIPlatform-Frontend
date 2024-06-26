@@ -1,7 +1,7 @@
 <div
   class="row d-flex justify-content-center border-bottom border-1 border-light-subtle"
 >
-  <div class="col-12 col-md-9 d-flex justify-content-between py-1">
+  <div class="col-12 col-md-10 col-xxl-8 d-flex justify-content-between py-1">
     <div class="d-flex">
       <div class=""></div>
       <p-menubar
@@ -65,7 +65,7 @@
   
   <div class="row d-flex">
     <div class="col-12 col-md-6">
-      <div class="form-group">
+      <div class="form-group my-2">
         <div class="mb-1 text-secondary">Country</div>
         <p-dropdown 
             formControlName="CountryId"
@@ -82,7 +82,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6">
-        <div class="form-group">
+        <div class="form-group mt-2">
             <div class="mb-1 text-secondary">City</div>
             <p-dropdown 
                 formControlName="CityId"
@@ -101,7 +101,7 @@
   </div>
   <div class="form-group my-4">
     <label class="mb-1 text-secondary" for="MissionTitle">Mission Title</label>
-    <input type="text" pInputText class="w-100 shadow-none py-2" formControlName="MissionTitle" id="MissionTitle" placeholder="Enter Mission Title" maxlength="128"/>
+    <input type="text" pInputText class="w-100 shadow-none py-2 ps-2" formControlName="MissionTitle" id="MissionTitle" placeholder="Enter Mission Title" maxlength="128"/>
     @if(missionForm.controls['MissionTitle'].invalid && (missionForm.controls['MissionTitle'].touched || missionForm.controls['MissionTitle'].dirty))
     {
       @if (missionForm.controls['MissionTitle'].hasError('required')) {
@@ -111,7 +111,7 @@
   </div>
   <div class="form-group my-4">
     <label class="mb-1 text-secondary" for="MSD">Mission Short Description</label>
-    <textarea pInputTextarea rows="3" class="w-100 shadow-none" formControlName="MissionShortDescription" id="MSD" placeholder="Enter your message" maxlength="256"></textarea>
+    <textarea pInputTextarea rows="3" class="w-100 shadow-none ps-2" formControlName="MissionShortDescription" id="MSD" placeholder="Enter your message" maxlength="256"></textarea>
     @if(missionForm.controls['MissionShortDescription'].invalid && (missionForm.controls['MissionShortDescription'].touched || missionForm.controls['MissionShortDescription'].dirty))
     {
       @if (missionForm.controls['MissionShortDescription'].hasError('required')) {
@@ -121,7 +121,7 @@
   </div>
   <div class="form-group my-4">
     <label class="mb-1 text-secondary" for="MD">Mission Description</label>
-    <textarea rows="3" pInputTextarea  class="w-100 shadow-none" formControlName="MissionDescription" id="MD" placeholder="Enter your message" maxlength="2048"></textarea>
+    <textarea rows="3" pInputTextarea  class="w-100 shadow-none ps-2" formControlName="MissionDescription" id="MD" placeholder="Enter your message" maxlength="2048"></textarea>
     @if(missionForm.controls['MissionDescription'].invalid && (missionForm.controls['MissionDescription'].touched || missionForm.controls['MissionDescription'].dirty))
     {
       @if (missionForm.controls['MissionDescription'].hasError('required')) {
@@ -131,7 +131,7 @@
   </div>
   <div class="form-group my-4">
     <label class="mb-1 text-secondary" for="MON">Mission Organisation Name</label>
-    <input type="text" pInputText class="w-100 shadow-none py-2" formControlName="MissionOrganisationName" id="MON" placeholder="Enter Mission Title" maxlength="50"/>
+    <input type="text" pInputText class="w-100 shadow-none py-2 ps-2" formControlName="MissionOrganisationName" id="MON" placeholder="Enter Mission Title" maxlength="50"/>
     @if(missionForm.controls['MissionOrganisationName'].invalid && (missionForm.controls['MissionOrganisationName'].touched || missionForm.controls['MissionOrganisationName'].dirty))
     {
       @if (missionForm.controls['MissionOrganisationName'].hasError('required')) {
@@ -141,7 +141,7 @@
   </div>
   <div class="form-group my-4">
     <label class="mb-1 text-secondary" for="MOD">Mission Organisation Detail</label>
-    <textarea  pInputTextarea rows="3" class="w-100 shadow-none" formControlName="MissionOrganisationDetail" id="MOD" placeholder="Enter your message" maxlength="2048"></textarea>
+    <textarea  pInputTextarea rows="3" class="w-100 shadow-none ps-2" formControlName="MissionOrganisationDetail" id="MOD" placeholder="Enter your message" maxlength="2048"></textarea>
     @if(missionForm.controls['MissionOrganisationDetail'].invalid && (missionForm.controls['MissionOrganisationDetail'].touched || missionForm.controls['MissionOrganisationDetail'].dirty))
     {
       @if (missionForm.controls['MissionOrganisationDetail'].hasError('required')) {
@@ -260,7 +260,7 @@ placeholder="Enter total seats"/>
   @if(isGoalMission){
     <div class="form-group my-4">
         <label class="mb-1 text-secondary" for="GoalObject">Goal Object</label>
-        <input type="text" pInputText class="w-100 shadow-none py-2" formControlName="GoalObject" id="GoalObject" placeholder="Enter Goal Object"/>
+        <input type="text" pInputText class="w-100 shadow-none py-2 ps-2" formControlName="GoalObject" id="GoalObject" placeholder="Enter Goal Object"/>
         @if(missionForm.controls['GoalObject'].invalid && (missionForm.controls['GoalObject'].touched || missionForm.controls['GoalObject'].dirty))
         {
           @if (missionForm.controls['GoalObject'].hasError('required')) {
@@ -334,7 +334,7 @@ placeholder="Enter total seats"/>
                     <div class="w-100 d-flex justify-content-center">
                       <i class="pi pi-cloud-upload" style="font-size: 2rem"></i>
                     </div>
-                    <div class="w-100 d-flex justify-content-center"><span>upload image here</span></div>
+                    <div class="w-100 d-flex justify-content-center"><span>Upload images here</span></div>
             </div>
         </ng-template>
     </p-fileUpload>
@@ -354,7 +354,7 @@ placeholder="Enter total seats"/>
                     <div class="w-100 d-flex justify-content-center">
                       <i class="pi pi-cloud-upload" style="font-size: 2rem"></i>
                     </div>
-                    <div class="w-100 d-flex justify-content-center"><span>upload document here</span></div>
+                    <div class="w-100 d-flex justify-content-center"><span>Upload documents here</span></div>
             </div>
         </ng-template>
     </p-fileUpload>

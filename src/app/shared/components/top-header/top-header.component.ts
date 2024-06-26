@@ -26,6 +26,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { CommonModule } from '@angular/common';
 import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { MissionTypeEnum, enumToKeyValueArray } from '../../Enums/global-enums';
+import { DialogService } from '../../../core/services/dialog.service';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -60,6 +61,7 @@ export class TopHeaderComponent implements OnInit {
   authService = inject(AuthService);
   userService = inject(UserService);
   formBuilder = inject(FormBuilder);
+  dialogService = inject(DialogService);
   messageService = inject(MessageService);
   router = inject(Router);
   visible: boolean = false;
@@ -111,6 +113,10 @@ export class TopHeaderComponent implements OnInit {
       ThemeId: ['', [Validators.required]],
       MissionSkill: [[], [Validators.required]],
       MissionAvailability: ['', [Validators.required]],
+    });
+
+    this.dialogService.openDialog$.subscribe(() => {
+      this.showDialog();
     });
 
     this.missionTypes = enumToKeyValueArray(MissionTypeEnum);

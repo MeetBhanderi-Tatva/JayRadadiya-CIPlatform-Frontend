@@ -1,10 +1,9 @@
-
 <form [formGroup]="formGroupFilters">
-<div
-  class="row d-flex justify-content-center border-bottom border-1 border-light-subtle"
->
-  <div class="col-12 col-md-9 d-flex justify-content-between">
-    <div class="ps-1 d-flex flex-grow-1">
+  <div
+    class="row d-flex justify-content-center border-bottom border-1 border-light-subtle"
+  >
+    <div class="col-12 col-md-10 col-xxl-8 d-flex justify-content-between">
+      <div class="ps-1 d-flex flex-grow-1">
         <p-inputGroup [styleClass]="'w-100'">
           <p-inputGroupAddon>
             <i class="pi pi-search"></i>
@@ -18,114 +17,166 @@
             placeholder="Search mission..."
           />
         </p-inputGroup>
-    </div>
+      </div>
       <div class="d-none d-lg-flex">
         <p-dropdown
           formControlName="country"
           [options]="filterList?.countries"
-          [style]="{width:'120px'}"
+          [style]="{ width: '120px' }"
           [styleClass]="'border-secondary-subtle shadow-none'"
           optionLabel="countryName"
           optionValue="countryId"
-          placeholder="Country">
+          placeholder="Country"
+          (onChange)="onCountryChange($event)"
+        >
           <ng-template pTemplate="selectedItem">
             <div class="d-flex align-items-center">
-                <div>Country</div>
+              <div>Country</div>
             </div>
-        </ng-template>
-      </p-dropdown>
+          </ng-template>
+        </p-dropdown>
         <p-multiSelect
           [options]="filterList?.cities"
           formControlName="cities"
-          [style]="{width:'120px'}"
+          [style]="{ width: '120px' }"
           [showHeader]="false"
           [styleClass]="'border-secondary-subtle shadow-none'"
           [displaySelectedLabel]="false"
           optionLabel="cityName"
           optionValue="cityId"
           placeholder="City"
+          (onChange)="onChangeCity($event)"
         />
         <p-multiSelect
           [options]="filterList?.themes"
           formControlName="themes"
           [showHeader]="false"
-          [style]="{width:'120px'}"
+          [style]="{ width: '120px' }"
           [styleClass]="'border-secondary-subtle shadow-none'"
           [displaySelectedLabel]="false"
           optionLabel="themeName"
           optionValue="themeId"
           placeholder="Theme"
+          (onChange)="onChangeTheme($event)"
         />
         <p-multiSelect
           [options]="filterList?.skills"
           formControlName="skills"
           [showHeader]="false"
-          [style]="{width:'120px'}"
+          [style]="{ width: '120px' }"
           [styleClass]="'border-secondary-subtle shadow-none'"
           [displaySelectedLabel]="false"
           optionLabel="skillName"
           optionValue="skillId"
           placeholder="Skill"
+          (onChange)="onChangeSkill($event)"
         />
       </div>
       <div class="d-flex d-lg-none">
-        <p-button icon="pi pi-sliders-v" [styleClass]="'bg-transparent text-secondary border-0 cursor-pointer'" />
+        <p-button
+          icon="pi pi-sliders-v"
+          [styleClass]="'bg-transparent text-secondary border-0 cursor-pointer'"
+        />
       </div>
+    </div>
   </div>
-</div>
-<div class="row d-flex justify-content-center px-3">
-  <div class="col-12 col-md-9">
-    <div class="col-12 d-flex justify-content-between my-3">
-      <div class="d-flex align-items-center">
-        <span class="text-center text-secondary-emphasis">Explore <span class="text-black fw-medium fs-6">{{ missionList.length }} Missions </span></span>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-10 col-xxl-8 d-flex py-2 px-3">
+      @for (item of activeFilter; track item) {
+      <div class="border border-1 border-secondary-subtle rounded-5 px-2 ms-1">
+        <span class="filter-label ">{{ item.label }}</span>
+        @if(item.type !== 'country'){
+        <span (click)="clearFilter(item.type,item.value)" class="ms-1" style="cursor: pointer;" >
+          <i
+            class="pi pi-times"
+            style="font-size: 0.7rem"
+            >
+          </i> 
+        </span>
+        }
       </div>
-      <div class="d-flex align-items-center gap-3 d-none d-lg-flex">
-        <div>
+      }
+      @if(activeFilter.length>1){
+      <div style="margin-top: 2px;" class="ms-2">
+        <span class="filter-label" (click)="clearAllFilter()" style="cursor: pointer;">Clear all</span>
+      </div>}
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center px-3">
+    @if(missionList.length>0){
+    <div class="col-12 col-md-10 col-xxl-8">
+      <div class="col-12 d-flex justify-content-between my-3">
+        <div class="d-flex align-items-center">
+          <span class="text-center text-secondary-emphasis"
+            >Explore
+            <span class="text-black fw-medium fs-6"
+              >{{ missionList.length }} Missions
+            </span></span
+          >
+        </div>
+        <div class="d-flex align-items-center gap-3 d-none d-lg-flex">
+          <div>
             <p-dropdown
               formControlName="sortingOption"
-              [style]="{width:'180px',boxShadow:'none'}"
+              [style]="{ width: '180px', boxShadow: 'none' }"
               scrollHeight="260px"
               [options]="sortings"
               optionLabel="sorting"
               optionValue="id"
               placeholder="Sort by"
             />
-        </div>
-        <div class="view-buttons">
-          <p-button
-            icon="pi pi-th-large"
-            [class.active]="activeView === 'grid'"
-            (click)="setView('grid')"
-            [styleClass]="'p-1'"
-          />
-          <p-button
-            icon="pi pi-bars"
-            [class.active]="activeView === 'list'"
-            (click)="setView('list')"
-            [styleClass]="'p-1'"
-          />
+          </div>
+          <div class="view-buttons">
+            <p-button
+              icon="pi pi-th-large"
+              [class.active]="activeView === 'grid'"
+              (click)="setView('grid')"
+              [styleClass]="'p-1'"
+            />
+            <p-button
+              icon="pi pi-bars"
+              [class.active]="activeView === 'list'"
+              (click)="setView('list')"
+              [styleClass]="'p-1'"
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-12 col-md-9">
-    @if(activeView === 'grid'){
+    <div class="col-12 col-md-10 col-xxl-8">
+      @if(activeView === 'grid'){
       <div class="row gx-4">
-        <div class="col-12 col-sm-6 col-lg-4 " *ngFor="let mission of missionList">
-        <app-mission-card [mission]="mission"></app-mission-card>
+        <div
+          class="col-12 col-sm-6 col-lg-4"
+          *ngFor="let mission of missionList"
+        >
+          <app-mission-card [mission]="mission" [filterList]="filterList"></app-mission-card>
+        </div>
       </div>
-    </div>
-    }
-    @else{
-      <div class="row gx-4">
+      } @else{
+      <div class="row gx-5">
         <div class="col-12" *ngFor="let mission of missionList">
-        <app-mission-card-list [mission]="mission"></app-mission-card-list>
+          <app-mission-card-list [mission]="mission" [filterList]="filterList"></app-mission-card-list>
+        </div>
       </div>
-    </div>
+      }
+    </div>}@else {
+      <div class="col-12 col-md-10 col-xxl-8 pt-3">
+        <div class="col-12 d-flex justify-content-center my-3">
+          <span class="fs-5">No mission found</span>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+          <p-button
+          [type]="'submit'"
+          label="Submit New Mission"
+          [outlined]="true"
+          severity="warning"
+          icon="pi pi-arrow-right" iconPos="right"
+          [styleClass]="'rounded-5 border-2 fw-medium fs-6 apply-button py-1'"
+          (click) = "openDialog()"
+        />
+        </div>
+      </div>
     }
-    
-    
   </div>
-</div>
-
 </form>

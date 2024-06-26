@@ -29,7 +29,7 @@ export class UserService {
   getAllFilters(): Observable<AuthResponse<FilterList>>{
     return this.http.get<AuthResponse<FilterList>>(
       this.apiUrl + "/api/Home/mission-filter"
-    );
+    )
   }
 
   getMissions(searchValue : string,country: number, cities: number[], themes : number[], skills : number[], sortingOption : number ):Observable<AuthResponse<IMission[]>>
@@ -59,5 +59,10 @@ export class UserService {
       `${this.apiUrl}/api/Home/mission`,
       data
     );
+  }
+  toggleFavourite(missionId: number,value: number): Observable<AuthResponse<string>>{
+    return this.http.post<AuthResponse<string>>(
+      this.apiUrl + "/api/Home/toggle-favourite",{missionId: missionId, value: value}
+    )
   }
 }

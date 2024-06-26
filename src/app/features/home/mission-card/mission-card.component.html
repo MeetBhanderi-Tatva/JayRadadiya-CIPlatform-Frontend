@@ -2,25 +2,27 @@
     <p-card header="{{ mission.missionTitle }}" [styleClass]="'my-2'">
       <ng-template pTemplate="header" >
         <img alt="Card" class="mission-image" src="data:image/png;base64,{{ mission.image }}" />
-        <div class="position-absolute theme-name">Environment</div>
+        <div class="position-absolute theme-name">{{ getThemeName(mission.themeId) }}</div>
         <div class="position-absolute image-buttons d-flex flex-column align-items-end justify-content-between">
-            <div><p-button label="City" icon="pi pi-map-marker" [styleClass]="'py-0 my-2'" /></div>
+            <div><p-button label="{{ getCityName(mission.cityId) }}" icon="pi pi-map-marker" [styleClass]="'py-0 my-2'" /></div>
             <div class="d-flex flex-column align-items-end">
-                <p-button icon="pi pi-heart" [styleClass]="'py-1'"/>
+              @if(mission.favourite == 0){
+                <p-button icon="pi pi-heart-fill" [style]="{color:'white'}" [styleClass]="'py-1'" (onClick)="toggleFavourite(1)"/>
+              }@else{
+                <p-button icon="pi pi-heart-fill" [style]="{color:'red'}" [styleClass]="'py-1'" (onClick)="toggleFavourite(0)"/>
+              }
                 <p-button icon="pi pi-user-plus" [styleClass]="'py-1'"/>
             </div>
         </div>
       </ng-template>
-      <!-- <p>{{ mission.missionShortDescription }}</p> -->
       <p class="short-description fw-light mb-0 px-3">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-        delectus quo id doloremque modi.
+        {{ mission.missionShortDescription }}
       </p>
       <div class="my-2 px-3">
         <div class="organisation-name">{{
           mission.missionOrganisationName
         }}</div>
-        <p-rating [(ngModel)]="value" [cancel]="false" stars="5">
+        <p-rating [(ngModel)]="mission.missionRating" [cancel]="false" stars="5" [readonly]="true">
           <ng-template pTemplate="onicon">
             <i class="pi pi-star-fill" style="color: rgb(238, 217, 29)"></i>
           </ng-template>
@@ -43,29 +45,48 @@
             <i class="pi pi-user" style="font-size: 1.2rem"></i>
           </div>
           <div class="d-flex flex-column">
-            <div class="fs-6 fw-medium flex-grow-1">{{ mission.totalSeats }}</div>
+            <div class="fs-6 fw-medium flex-grow-1">{{ mission.totalSeats - mission.occupiedSeats }}</div>
             <div class="fs-6 fw-light seats-left">seats left</div>
           </div>
         </div>
+        @if(mission.missionType == 1){
         <div class="col-7 col-lg-8 d-flex">
           <div
             class="d-flex  justify-content-center mt-1 px-2"
           >
-            <i class="pi pi-bullseye" style="font-size: 1.3rem"></i>
+            <i class="pi pi-clock" style="font-size: 1.3rem"></i>
           </div>
           <div class="d-flex flex-column flex-grow-1 justify-content-evenly">
-            <div class="flex-grow-1 pt-2">
-              <p-progressBar
-                [value]="50"
-                [showValue]="false"
-                [style]="{ height: '6px' }"
-              />
+            <div class="pt-2">
+              <span>{{ mission.missionRegistrationDeadline }}</span>
             </div>
-            <div class="fs-6 fw-light seats-left">50 achieved</div>
+            <div class="fs-6 fw-light seats-left">Registration deadline</div>
           </div>
-        </div>
-
-        <div class="position-absolute goal-object">Ongoing Opportunity</div>
+        </div>}@else {
+          <div class="col-7 col-lg-8 d-flex">
+            <div
+              class="d-flex  justify-content-center mt-1 px-2"
+            >
+              <i class="pi pi-bullseye" style="font-size: 1.3rem"></i>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 justify-content-evenly">
+              <div class="flex-grow-1 pt-2">
+                <p-progressBar
+                  [value]=" mission.achievedGoal / mission.TotalGoal"
+                  [showValue]="false"
+                  [style]="{ height: '6px' }"
+                />
+              </div>
+              <div class="fs-6 fw-light seats-left">{{mission.achievedGoal}} achieved</div>
+            </div>
+          </div>
+        }
+        @if(mission.missionType == 1){
+          <div class="position-absolute goal-object">From {{mission.missionStartDate}} until {{mission.MissionEndDate}}</div>
+        }
+        @else {
+          <div class="position-absolute goal-object">{{mission.goalObject}}</div>
+        }
       </div>
       <ng-template pTemplate="footer">
         <div class="d-flex justify-content-center">

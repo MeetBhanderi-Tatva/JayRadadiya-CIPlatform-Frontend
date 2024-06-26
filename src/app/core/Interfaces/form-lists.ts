@@ -15,3 +15,9 @@ export interface FilterList {
     skills : Skill[];
     cities : City[];
 }
+
+export interface ActiveFilter{
+    type : string;
+    value : number;
+    label : string;
+}
